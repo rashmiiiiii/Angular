@@ -1,0 +1,87 @@
+<div class="row mt-2">
+    <!--Add Faculty Form-->
+    <div class="col-sm-4">
+        <h5>Add new faculty</h5>
+        <form [formGroup]="f_form" id="idF" (ngSubmit)="submitForm()">
+            <div class="form-group">
+                <input type="text" id="empno" name="empno" class=" form-control-sm"
+                    placeholder="Enter empno ex:(MITE001)" formControlName="empno">
+                <small class="text-danger" *ngIf="empno.touched && empno.invalid">
+                    Empno can't be empty
+                </small>
+            </div>
+            <div class="form-group">
+                <input type="text" id="ename" name="ename" class="form-control-sm" placeholder="Enter the full name:"
+                    formControlName="ename">
+                <small class="text-danger" *ngIf="ename.touched && ename.invalid">
+                    Ename can't empty
+                </small>
+            </div>
+            <div class="form-group">
+                <input type="text" id="qualification" name="qualification" class="form-control-sm"
+                    placeholder="Enter the qualification:" formControlName="qualification">
+                <small class="text-danger" *ngIf="qualification.touched && qualification.invalid">
+                    Qualification can't be empty
+                </small>
+            </div>
+            <div class="form-group">
+                <input type="text" id="dname" name="dname" class="form-control-sm"
+                    placeholder="Enter the department name:" formControlName="dname">
+                <small class="text-danger" *ngIf="dname.touched && dname.invalid">
+                    Deptno can't be empty
+                </small>
+            </div>
+            <div>
+                <button class="btn btn-primary" [disabled]="f_form.invalid">Add Faculty</button>
+            </div>
+        </form>
+
+    </div>
+    <!--logic search and display-->
+    <div class="col-sm-4">
+        <div class="form-group">
+            <input type="text" class="form-control" placeholder="enter the name to search" [(ngModel)]="searchStr"
+                (keyup.enter)="getSearchResult()" />
+        </div>
+        <div *ngIf="searchFaculty.length > 0">
+            <table class="table">
+                <tr>
+                    <th>Empno</th>
+                    <th>Ename</th>
+                    <th>Dname</th>
+                    <th>Qualification</th>
+                </tr>
+                <tr *ngFor="let  f of searchFaculty">
+                    <td>{{f.empno}}</td>
+                    <td>{{f.ename}}</td>
+                    <td>{{f.dname}}</td>
+                    <td>{{f.qualification}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <!--chats information(google chats)-->
+    <div class="col-sm-4">
+        <google-chart [data]="pieChart" (chartSelect)="getFacultyByDname($event)"> </google-chart>
+        <div *ngIf="f_dname_list.length > 0">
+            <table class="table">
+                <tr>
+                    <th>Empno</th>
+                    <th>Ename</th>
+                    <th>Dname</th>
+                    <th>Qualification</th>
+                </tr>
+                <tr *ngFor="let  f of f_dname_list">
+                    <td>{{f.empno}}</td>
+                    <td>{{f.ename}}</td>
+                    <td>{{f.dname}}</td>
+                    <td>{{f.qualification}}</td>
+                </tr>
+            </table>
+        </div>
+
+
+
+    </div>
+
+</div>
